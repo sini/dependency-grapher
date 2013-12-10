@@ -2,9 +2,9 @@ package me.forall.dependency_grapher
 import java.net.URL
 import java.net.HttpURLConnection
 
-case class Artifact(artifactId: String, groupId: String, version: String) 
+case class Artifact(artifactId: String, groupId: String, version: String)
 
-case class Dependency(artifact: Artifact) { // exclusions: Set[Exclusion], scope: Scope){
+/*case class Dependency(artifact: Artifact) { // exclusions: Set[Exclusion], scope: Scope){
   def isIn(repo: Repository): Boolean = {
     val path = repo.layout match {
       case "default" => 
@@ -31,26 +31,27 @@ case object War extends Packaging
 case object Pom extends Packaging
 case object Jar extends Packaging
 case class OtherPackaging(name: String) extends Packaging
+*/
 
-sealed trait Scope
-case object Provided extends Scope
-case object Test extends Scope
-case object Compile extends Scope
-case object Runtime extends Scope
-case object System extends Scope
+//sealed trait Scope
+//case object Provided extends Scope
+//case object Test extends Scope
+//case object Compile extends Scope
+//case object Runtime extends Scope
+//case object System extends Scope
 
-case class Repository(id: String, url: String, name: String = "", layout: String = "default")
+//case class Repository(id: String, url: String, name: String = "", layout: String = "default")
 
 case class Project(
-  publishedArtifact: Artifact,
+  publishedArtifact: Artifact
 //  packaging: Packaging,
 //  parent: Artifact,
 //  name: String,
 //  description: String,
 //  scm: URL,
-  dependencies: Set[Dependency],
+  //dependencies: Set[Dependency],
 //  modules: Seq[Artifact],
-  repositories: Set[Repository]
+  //repositories: Set[Repository]
 //  properties: Map[String, String]
 
 //if packgiing is not defined, default jar
@@ -60,6 +61,6 @@ case class Project(
 //module definition forces a parent relationship...
 )
 
-object ArtifactTree {
+//object ArtifactTree {
 //  val root: Artifact = ???
-}
+//}

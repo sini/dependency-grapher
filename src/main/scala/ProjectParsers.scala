@@ -22,7 +22,7 @@ object ProjectParser {
     } catch {
       case e: SAXParseException =>
         println("Parse Error")
-        Project(Artifact("","",""),Set.empty,Set.empty)
+        Project(Artifact("","","")) //,Set.empty,Set.empty)
     }
   }
 
@@ -47,17 +47,20 @@ object ProjectParser {
   }
 
   implicit val fileProjectParser = new FileProjectParser
-  
+
   class ElemProjectParser extends ProjectParser[Elem] {
     def parseProject(t: Elem): Project = {
       Project(
-      publishedArtifact = getArtifact(t),
-      dependencies = getDependencies(t),
-      repositories = getRepositories(t)
+      publishedArtifact = getArtifact(t)
+      //dependencies = getDependencies(t),
+      //repositories = getRepositories(t)
       )
     }
   }
 
+  implicit val elemProjectParser = new ElemProjectParser
+
+/*
   def elemToRepo(n: Node): Repository = {
     val name = (n \ "name").text
     val id = (n \ "id").text
@@ -68,7 +71,7 @@ object ProjectParser {
     }
     Repository(id = id, url = url, name = name, layout = layout)
   }
-
+*/
   def getArtifact(n: Node) = {
     val artifactId = (n \ "artifactId").text
     val groupId = (n \ "groupId").text
@@ -76,7 +79,7 @@ object ProjectParser {
     val name = (n \ "name").text
     Artifact(artifactId = artifactId, groupId = groupId, version = version)
   }
-
+/*
   def getRepositories(n: Elem) = {
     ((n \ "repositories" \ "repository") map elemToRepo).toSet
   }
@@ -84,5 +87,5 @@ object ProjectParser {
   def getDependencies(n: Node) = {
     ((n \ "dependencies" \ "dependency") map (x => Dependency(getArtifact(x)))).toSet
   }
-  implicit val elemProjectParser = new ElemProjectParser
+  */
 }
