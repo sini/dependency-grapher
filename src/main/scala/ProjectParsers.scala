@@ -8,7 +8,7 @@ import java.net.URL
 import java.io.File
 import org.xml.sax.SAXParseException
 
-
+/*
 trait ProjectParser[T] {
   def parseProject(t: T): Project
 }
@@ -18,6 +18,7 @@ object ProjectParser {
   def convertToProject[A, B: ProjectParser](f: A => B, arg: A) = {
     try {
       val xml = f(arg)
+      scalaxb.fromXML
       xml.toProject
     } catch {
       case e: SAXParseException =>
@@ -60,7 +61,7 @@ object ProjectParser {
 
   implicit val elemProjectParser = new ElemProjectParser
 
-/*
+
   def elemToRepo(n: Node): Repository = {
     val name = (n \ "name").text
     val id = (n \ "id").text
@@ -71,7 +72,7 @@ object ProjectParser {
     }
     Repository(id = id, url = url, name = name, layout = layout)
   }
-*/
+
   def getArtifact(n: Node) = {
     val artifactId = (n \ "artifactId").text
     val groupId = (n \ "groupId").text
@@ -79,7 +80,7 @@ object ProjectParser {
     val name = (n \ "name").text
     Artifact(artifactId = artifactId, groupId = groupId, version = version)
   }
-/*
+
   def getRepositories(n: Elem) = {
     ((n \ "repositories" \ "repository") map elemToRepo).toSet
   }
@@ -87,5 +88,6 @@ object ProjectParser {
   def getDependencies(n: Node) = {
     ((n \ "dependencies" \ "dependency") map (x => Dependency(getArtifact(x)))).toSet
   }
-  */
+
 }
+*/

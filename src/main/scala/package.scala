@@ -10,8 +10,8 @@ package object dependency_grapher {
     LoggerFactory.getLogger("DependecyGrapher")
   }
 
-  implicit class ExtendWithToProject[T: ProjectParser](t: T) {
+/*  implicit class ExtendWithToProject[T: ProjectParser](t: T) {
     def toProject: Project = implicitly[ProjectParser[T]].parseProject(t)
   }
-
+*/
 }

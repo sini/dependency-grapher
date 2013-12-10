@@ -41,7 +41,7 @@ case class OtherPackaging(name: String) extends Packaging
 //case object System extends Scope
 
 //case class Repository(id: String, url: String, name: String = "", layout: String = "default")
-
+/*
 case class Project(
   publishedArtifact: Artifact
 //  packaging: Packaging,
@@ -60,7 +60,7 @@ case class Project(
 //every artifact has a unique (groupid,artifactid,version)
 //module definition forces a parent relationship...
 )
-
+*/
 //object ArtifactTree {
 //  val root: Artifact = ???
 //}
