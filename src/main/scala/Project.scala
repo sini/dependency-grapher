@@ -41,7 +41,7 @@ case object System extends Scope
 
 case class Repository(id: String, url: String, name: String = "", layout: String = "default")
 
-case clasProject(
+case class Project(
   publishedArtifact: Artifact,
 //  packaging: Packaging,
 //  parent: Artifact,
