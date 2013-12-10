@@ -5,14 +5,13 @@ import ch.qos.logback.classic.LoggerContext
 
 package object dependency_grapher {
 
-	lazy val logger = {
-		StatusPrinter.print((LoggerFactory.getILoggerFactory).asInstanceOf[LoggerContext])
-		LoggerFactory.getLogger("DependecyGrapher")
-	}
+  lazy val logger = {
+    StatusPrinter.print((LoggerFactory.getILoggerFactory).asInstanceOf[LoggerContext])
+    LoggerFactory.getLogger("DependecyGrapher")
+  }
 
-	implicit class ExtendWithToProject[T: ProjectParser](t: T) {
-		def toProject: Project = implicitly[ProjectParser[T]].parseProject(t)
-	}
+  implicit class ExtendWithToProject[T: ProjectParser](t: T) {
+    def toProject: Project = implicitly[ProjectParser[T]].parseProject(t)
+  }
 
 }
-

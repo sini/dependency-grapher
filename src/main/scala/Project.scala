@@ -5,26 +5,25 @@ import java.net.HttpURLConnection
 case class Artifact(artifactId: String, groupId: String, version: String) 
 
 case class Dependency(artifact: Artifact) { // exclusions: Set[Exclusion], scope: Scope){
-	def isIn(repo: Repository): Boolean = {
-		val path = repo.layout match {
-			case "default" => 
-				import repo._
-				import artifact._
-				new URL(s"$url/${groupId.replace(".", "/")}/$artifactId/$version/$artifactId-$version.pom")
-			case _ => throw new Exception("Unhandled repository layout")
-		}
-		val conn = path.openConnection().asInstanceOf[HttpURLConnection]
-		conn.setRequestMethod("HEAD")
-		conn.connect()
-		println("path: " + path + " response code: " + conn.getResponseCode())
-		true
-	}
+  def isIn(repo: Repository): Boolean = {
+    val path = repo.layout match {
+      case "default" => 
+        import repo._
+        import artifact._
+        new URL(s"$url/${groupId.replace(".", "/")}/$artifactId/$version/$artifactId-$version.pom")
+      case _ => throw new Exception("Unhandled repository layout")
+    }
+    val conn = path.openConnection().asInstanceOf[HttpURLConnection]
+    conn.setRequestMethod("HEAD")
+    conn.connect()
+    println("path: " + path + " response code: " + conn.getResponseCode())
+    true
+  }
 }
 
-
 case class Exclusion(groupId: String, artifactId: String) {
-	def matches(artifact: Artifact): Boolean =
-		(this.groupId, this.artifactId) == (artifact.groupId, artifact.artifactId)
+  def matches(artifact: Artifact): Boolean =
+    (this.groupId, this.artifactId) == (artifact.groupId, artifact.artifactId)
 }
 
 sealed trait Packaging
@@ -42,17 +41,17 @@ case object System extends Scope
 
 case class Repository(id: String, url: String, name: String = "", layout: String = "default")
 
-case class Project(
-	publishedArtifact: Artifact,
-//	packaging: Packaging,
-//	parent: Artifact,
-//	name: String,
-//	description: String,
-//	scm: URL,
-	dependencies: Set[Dependency],
-//	modules: Seq[Artifact],
-	repositories: Set[Repository]
-//	properties: Map[String, String]
+case clasProject(
+  publishedArtifact: Artifact,
+//  packaging: Packaging,
+//  parent: Artifact,
+//  name: String,
+//  description: String,
+//  scm: URL,
+  dependencies: Set[Dependency],
+//  modules: Seq[Artifact],
+  repositories: Set[Repository]
+//  properties: Map[String, String]
 
 //if packgiing is not defined, default jar
 //groupid inherits from parent
@@ -62,6 +61,5 @@ case class Project(
 )
 
 object ArtifactTree {
-//	val root: Artifact = ???
+//  val root: Artifact = ???
 }
-
