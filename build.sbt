@@ -14,6 +14,6 @@ libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.13"
 
 scalaxbSettings
 
-packageName in scalaxb in Compile := "maven"
+packageName in scalaxb in Compile := "me.forall.dependency_grapher.pom"
 
 sourceGenerators in Compile <+= scalaxb in Compile

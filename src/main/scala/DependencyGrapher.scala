@@ -1,7 +1,7 @@
 package me.forall.dependency_grapher
 
 import java.io.File
-import maven._
+import pom._
 
 object DepencyGrapher extends App {
 
