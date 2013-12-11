@@ -1,7 +1,6 @@
 package me.forall.dependency_grapher
 
 import java.io.File
-import pom._
 
 object DepencyGrapher extends App {
 
@@ -9,20 +8,37 @@ object DepencyGrapher extends App {
 
   val targetPomPath = args(0)
   val file = new File(targetPomPath)
-  val pom = scala.xml.XML.loadFile(file)
-  val project = scalaxb.fromXML[Model](pom)
-  val deps: Dependencies = project.dependencies.get
-  println(deps)
-  for(x <- deps.dependency) {
-    println(x)
-  }
-  //val x = maven.ActivationOS()
-  //  val repo = Repository("sonatype releases", "http://oss.sonatype.org/content/repositories/releases")
-//  val art = Artifact("junit", "junit", "4.11")
-//  val dep = Dependency(art)
-//  dep.isIn(repo)
-//  val targetPomFile = new File(targetPomPath)
+  val foo = scala.xml.XML.loadFile(file)
+  val project = scalaxb.fromXML[pom.Model](foo)
 
-//  println(targetPomFile.toProject)
+  def transform[In, Mid, Final](in: In)(firstOp: In => Option[Mid])(flatOp: Mid => Seq[Final]): Seq[Final] =
+    firstOp(in).toSeq.flatMap(flatOp)
 
+  val reps: Seq[pom.Repository]  =
+    transform(project)(_.repositories)(_.repository)
+
+  val deps: Seq[pom.Dependency] =
+    transform(project)(_.dependencies)(_.dependency)
+
+  val exclusions: Map[pom.Dependency, Seq[pom.Exclusion]] = deps.map { dep =>
+    (dep, transform(dep)(_.exclusions)(_.exclusion))
+  }.toMap
+
+  println(exclusions)
+
+  for {
+       pomRepo <- reps
+       remote = new RemoteRepository(pomRepo)
+       pomDep <- deps
+    }  {
+      // logger.info("repo: " + remote + " dep: " + pomDep)
+      // logger.info(remote.fetch(pomDep).toString)
+    }
+  // val remote = new RemoteRepository(
+  //     pom.Repository(
+  //       url = Some("http://repo1.maven.org/maven2"),
+  //       id = Some("central")
+  //     )
+  // )
+  // println(remote.fetch("commons-configuration", "commons-configuration", "1.1.0"))
 }

@@ -1,0 +1,51 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <xs:element name="metadata">
+   <xs:complexType>
+     <xs:all>
+       <xs:element type="xs:string" minOccurs="0" name="groupId"/>
+       <xs:element type="xs:string" minOccurs="0" name="artifactId"/>
+       <xs:element type="xs:string" minOccurs="0" name="version"/>
+       <xs:element name="versioning">
+         <xs:complexType>
+           <xs:all>
+             <xs:element type="xs:string" minOccurs="0" name="release"/>
+             <xs:element type="xs:string" minOccurs="0" name="latest"/>
+             <xs:element name="versions" minOccurs="0">
+               <xs:complexType>
+                 <xs:all>
+                   <xs:element type="xs:string" name="version" maxOccurs="unbounded" minOccurs="0"/>
+                 </xs:all>
+               </xs:complexType>
+             </xs:element>
+             <xs:element name="snapshot" minOccurs="0">
+               <xs:complexType>
+                 <xs:all>
+                   <xs:element type="xs:float" name="timestamp"/>
+                   <xs:element type="xs:long" name="buildNumber"/>
+                 </xs:all>
+               </xs:complexType>
+             </xs:element>
+             <xs:element type="xs:long" name="lastUpdated" minOccurs="0"/>
+             <xs:element name="snapshotVersions" minOccurs="0">
+               <xs:complexType>
+                 <xs:all>
+                   <xs:element name="snapshotVersion" minOccurs="0">
+                     <xs:complexType>
+                       <xs:all>
+                         <xs:element type="xs:string" minOccurs="0" name="extension"/>
+                         <xs:element type="xs:string" minOccurs="0" name="value"/>
+                         <xs:element type="xs:long" minOccurs="0" name="updated"/>
+                       </xs:all>
+                     </xs:complexType>
+                   </xs:element>
+                 </xs:all>
+               </xs:complexType>
+             </xs:element>
+           </xs:all>
+         </xs:complexType>
+       </xs:element>
+     </xs:all>
+     <xs:attribute type="xs:string" name="modelVersion"/>
+   </xs:complexType>
+ </xs:element>
+</xs:schema>
