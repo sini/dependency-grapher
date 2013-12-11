@@ -16,4 +16,4 @@ scalaxbSettings
 
 packageName in scalaxb in Compile := "me.forall.dependency_grapher.pom"
 
-sourceGenerators in Compile <+= scalaxb in Compile
+sourceGenerators in Compile += (scalaxb in Compile).value
